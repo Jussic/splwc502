@@ -31,6 +31,3 @@ $RECYCLE.BIN/
 .vscode/extensions.json
 .vscode/launch.json
 .vscode/settings.json
-README.md
-config/project-scratch-def.json
-sfdx-project.json
