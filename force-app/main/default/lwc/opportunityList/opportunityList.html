@@ -1,0 +1,75 @@
+<template>
+        <lightning-card
+            icon-name="standard:opportunity">
+        <h1 slot="title" >Opportunities</h1>
+        <div class="slds-card__body slds-card__body_inner">
+                <lightning-combobox
+                name="progress"
+                label="Record Filter"
+                value={status}
+                placeholder="Select Progress"
+                options={picklistValues}
+                onchange={handleChange} >
+            </lightning-combobox>
+            <div class="slds-tile__detail">
+                <ul class="slds-list_horizontal slds-has-dividers_right">
+                    <li class="slds-item">Number of Records</li>
+                    <li class="slds-item">{totalRecords}</li>
+                </ul>
+                <ul class="slds-list_horizontal slds-has-dividers_right">
+                        <li class="slds-item">Total Amount</li>
+                        <li class="slds-item">{amount}</li>
+                </ul>
+            </div>
+            <p>&nbsp;</p>
+            <template if:true={dataRetrieved}>
+                <template if:true={tileMode}>
+                    <template for:each={displayedOpportunities} for:item="opp">
+                        <div key={opp.Id}>                
+                                <c-opp-card
+                                    name={opp.Name}
+                                    stage={opp.StageName}
+                                    amount={opp.Amount}
+                                    close-date={opp.CloseDate}
+                                    opp-id={opp.Id}
+                                    ondelete={handleDelete}
+                                    onsuccess={handleSuccess}
+                                ></c-opp-card>
+                        </div>
+                    </template>
+                </template>
+                <template if:false={tileMode}>
+                    <lightning-datatable
+                        key-field="Id"
+                        data={displayedOpportunities}
+                        columns={columns}
+                        onsave={handleSave}
+                        draft-values={draftValues}
+                        onrowaction={handleRowAction}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </template>
+            </template>
+            <template if:false={dataRetrieved}>
+                No records found
+            </template>
+        </div>
+        <div slot="actions">
+            <lightning-button label="Refresh" slot="actions" onclick={refresh}></lightning-button>
+            <lightning-button label="Save" slot="actions" onclick={save}></lightning-button>
+            <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:settings" onselect={handleViewChange}>
+                <lightning-menu-item value="tile" label="Tile"></lightning-menu-item>
+                <lightning-menu-item value="table" label="Table"></lightning-menu-item>
+            </lightning-button-menu>
+        </div>
+        </lightning-card>  
+        <!--<c-lwc_streaming_api 
+            channel="/topic/Opportunities" 
+            api-version="46.0" 
+            debug=true
+            onmessage={handleMessage} 
+            onerror={handleError} 
+            class="lwc_streaming_api-1">
+        </c-lwc_streaming_api>-->
+    </template>
+    

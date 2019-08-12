@@ -1,0 +1,51 @@
+<template>
+        <lightning-card
+                variant="base"
+                icon-name="standard:opportunity">
+            <h1 slot="title">{name}</h1>        
+            <div class="slds-card__body slds-card__body_inner">
+                <!--Body-->
+                <article class="slds-tile">          
+                <div class="slds-tile__detail">
+                  <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak " title="First Label">Stage:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for first label">{stage}</dd>
+                    <dt class="slds-item_label slds-text-color_weak" title="Second Label">Amount:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{amount}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Close Date:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{closeDate}</dd>
+                  </dl>
+                </div>
+                </article>
+            </div>
+            <div slot="actions">
+                <lightning-button label="Edit" slot="actions" onclick={openmodal}></lightning-button>
+                <lightning-button label="View" slot="actions" onclick={viewRecord}></lightning-button>
+                <lightning-button label="Delete" slot="actions" onclick={deleteRecord}></lightning-button>
+            </div>
+            <div slot="footer">
+                <h6><!--Footer--></h6>
+            </div>
+        </lightning-card>
+        <template if:true={openmodel}>
+            <div class="demo-only" style="height: 640px;">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" size="medium">
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Opportunity Edit</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <c-opp-record-form mode='edit' record-id={oppId} oncancel={closeModal} onsuccess={handleSuccess}></c-opp-record-form>
+                        </div>
+                        <footer class="slds-modal__footer"></footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+            </template>
+    </template>

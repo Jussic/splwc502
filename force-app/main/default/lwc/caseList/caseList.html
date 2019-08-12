@@ -1,0 +1,75 @@
+<template>
+        <lightning-card
+            icon-name="standard:case">
+        <h1 slot="title" >Cases</h1>
+        <div class="slds-card__body slds-card__body_inner">
+                <lightning-combobox
+                name="progress"
+                label="Record Filter"
+                value={status}
+                placeholder="Select Progress"
+                options={picklistValues}
+                onchange={handleChange} >
+            </lightning-combobox>
+            <div class="slds-tile__detail">
+                <ul class="slds-list_horizontal slds-has-dividers_right">
+                    <li class="slds-item">Number of Records</li>
+                    <li class="slds-item">{totalRecords}</li>
+                </ul>
+                <ul class="slds-list_horizontal slds-has-dividers_right">
+                        <li class="slds-item">Created Date</li>
+                        <li class="slds-item">{created}</li>
+                </ul>
+            </div>
+            <p>&nbsp;</p>
+            <template if:true={dataRetrieved}>
+                <template if:true={tileMode}>
+                    <template for:each={displayedCases} for:item="theCase">
+                        <div key={theCase.Id}>                
+                                <c-case-card
+                                    subject={theCase.Subject}
+                                    status={theCase.Status}
+                                    created-date={theCase.CreatedDate}
+                                    close-date={theCase.ClosedDate}
+                                    case-id={theCase.Id}
+                                    ondelete={handleDelete}
+                                    onsuccess={handleSuccess}
+                                ></c-case-card>
+                        </div>
+                    </template>
+                </template>
+                <template if:false={tileMode}>
+                    <lightning-datatable
+                        key-field="Id"
+                        data={displayedCases}
+                        columns={columns}
+                        onsave={handleSave}
+                        draft-values={draftValues}
+                        onrowaction={handleRowAction}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </template>
+            </template>
+            <template if:false={dataRetrieved}>
+                No records found
+            </template>
+        </div>
+        <div slot="actions">
+            <lightning-button label="Refresh" slot="actions" onclick={refresh}></lightning-button>
+            <lightning-button label="Save" slot="actions" onclick={save}></lightning-button>
+            <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:settings" onselect={handleViewChange}>
+                <lightning-menu-item value="tile" label="Tile"></lightning-menu-item>
+                <lightning-menu-item value="table" label="Table"></lightning-menu-item>
+            </lightning-button-menu>
+        </div>
+        </lightning-card>  
+        <c-lwc_streaming_api 
+    channel="/topic/NewCaseCreated" 
+    api-version="45.0" 
+    debug=true
+    onmessage={handleMessage} 
+    onerror={handleError} 
+    class="lwc_streaming_api-1">
+</c-lwc_streaming_api>
+    </template>
+    

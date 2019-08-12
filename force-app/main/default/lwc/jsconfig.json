@@ -1,0 +1,47 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/caseCard": [
+                "caseCard/caseCard.js"
+            ],
+            "c/caseList": [
+                "caseList/caseList.js"
+            ],
+            "c/caseRecordForm": [
+                "caseRecordForm/caseRecordForm.js"
+            ],
+            "c/formToggle": [
+                "formToggle/formToggle.js"
+            ],
+            "c/helloWorld": [
+                "helloWorld/helloWorld.js"
+            ],
+            "c/helloWorldTile": [
+                "helloWorldTile/helloWorldTile.js"
+            ],
+            "c/lwcStreamingDemo": [
+                "lwcStreamingDemo/lwcStreamingDemo.js"
+            ],
+            "c/oppCard": [
+                "oppCard/oppCard.js"
+            ],
+            "c/oppRecordForm": [
+                "oppRecordForm/oppRecordForm.js"
+            ],
+            "c/opportunityList": [
+                "opportunityList/opportunityList.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}

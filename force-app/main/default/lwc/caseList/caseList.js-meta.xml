@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="caseList">
+    <apiVersion>45.0</apiVersion>
+    <isExposed>true</isExposed>
+     <targets>
+      <target>lightning__RecordPage</target>
+    </targets>
+        <targetConfigs>
+      <targetConfig targets="lightning__RecordPage"> 
+        <property name="status" label="Status" type="String" datasource="apex://CaseStatusController"/>
+        <property name="mode" label="Display Mode" default="Tile" type="String" datasource="Tile,List" />
+      </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
